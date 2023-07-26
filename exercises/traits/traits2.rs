@@ -8,13 +8,21 @@
 //
 // Execute `rustlings hint traits2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 trait AppendBar {
     fn append_bar(self) -> Self;
 }
 
 // TODO: Implement trait `AppendBar` for a vector of strings.
+impl AppendBar for Vec<String> {
+    // * About why using `mut self` in the trait implementation, check this answer:
+    // * https://stackoverflow.com/questions/66700509/why-is-mut-self-in-trait-implementation-allowed-when-trait-definition-only-uses
+    // * Basically it means that, things like `ref` and `mut` are not the part of the parameter types
+    // * Therefore, `self` and `mut self` are viewed as the same function signature
+    fn append_bar(mut self) -> Self {
+        self.push("Bar".to_string());
+        self
+    }
+}
 
 #[cfg(test)]
 mod tests {
